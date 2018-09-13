@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name = "datas_urils",
-    packages = ["datas_urils/env"],
+    packages = ["datas_urils"],
     version = "0.0.1",
     description = "Tools for Datas Project",
     author = "Makoto P. Kato",
