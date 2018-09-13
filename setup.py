@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name = "datas_utils",
-    packages = ["datas_utils"],
+    packages = ["datas_utils", "datas_utils.env"],
     version = "0.0.1",
     description = "Tools for Datas Project",
     author = "Makoto P. Kato",
