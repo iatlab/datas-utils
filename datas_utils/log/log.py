@@ -10,6 +10,7 @@ def get_logger(name, loglevel="INFO", logformat=LOG_FORMAT):
     '''
     logger = logging.getLogger(name)
     handler = logging.StreamHandler()
+    logger.setLevel(getattr(logging, loglevel))
     handler.setLevel(getattr(logging, loglevel))
     formatter = logging.Formatter(logformat)
     handler.setFormatter(formatter)
