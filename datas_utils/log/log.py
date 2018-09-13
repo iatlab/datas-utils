@@ -1,6 +1,8 @@
 import logging
 
-def get_logger(name, loglevel="INFO"):
+LOG_FORMAT = '%(asctime)s- %(name)s - %(levelname)s - %(message)s'
+
+def get_logger(name, loglevel="INFO", logformat=LOG_FORMAT):
     '''
     logger = log.load(__name__)
 
@@ -9,6 +11,7 @@ def get_logger(name, loglevel="INFO"):
     logger = logging.getLogger(name)
     handler = logging.StreamHandler()
     handler.setLevel(getattr(logging, loglevel))
-    logger.setLevel(getattr(logging, loglevel))
+    formatter = logging.Formatter(logformat)
+    handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
