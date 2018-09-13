@@ -17,6 +17,12 @@ class S3(object):
         response = obj.get()['Body']
         return response
 
+    def list(self, bucketname, prefix):
+        s3 = self.session.resource('s3')
+        bucket = s3.Bucket(bucketname)
+        for obj in bucket.objects.filter(Prefix=prefix):
+            yield obj.key
+
     def put(self, bucketname, keyname, content, content_type):
         if isinstance(content, str):
             content = content.encode(self.ENCODING)

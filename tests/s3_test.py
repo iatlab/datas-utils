@@ -71,6 +71,21 @@ class S3TestCase(TestCase):
         content = '\n'.join([line.decode() for line in stream.iter_lines()])
         eq_(content, self.TEST_MULTILINE_CONTENT)
 
+    def test_s3_list(self):
+        self.s3.put(self.BUCKETNAME, 
+                    self.KEY_PREFIX+"1-"+self.TEST_FILE,
+                    json.dumps(self.TEST_CONTENT).encode(),
+                    "text/json")
+        self.s3.put(self.BUCKETNAME, 
+                    self.KEY_PREFIX+"2-"+self.TEST_FILE,
+                    json.dumps(self.TEST_CONTENT).encode(),
+                    "text/json")
+        keys = self.s3.list(self.BUCKETNAME, self.KEY_PREFIX)
+        eq_(set(keys), set([
+                            self.KEY_PREFIX+"1-"+self.TEST_FILE,
+                            self.KEY_PREFIX+"2-"+self.TEST_FILE,
+        ]))
+
     def _delete_objects(self):
         session = Session(
                           aws_access_key_id     = self.aws_access_key_id,
