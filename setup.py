@@ -10,6 +10,6 @@ setup(
     author_email = "mpkato@acm.org",
     license     = "MIT License",
     url = "https://github.com/iatlab/datas_utils",
-    install_requires = [],
+    install_requires = ['boto3>=1.9.3'],
     tests_require=['nose'],
 )
