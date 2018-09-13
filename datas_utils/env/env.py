@@ -21,7 +21,7 @@ class Env(dict):
             self[varname] = varclass(varval)
 
     def __getattr__(self, key):
-        return self.get(key)
+        return self[key]
 
 
 def load(*args, **kwargs):

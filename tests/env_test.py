@@ -17,12 +17,16 @@ class EnvTestCase(TestCase):
         os.environ["K"] = "o"
 
     def test_defined(self):
-        e = env.load("A", "B")
+        e = env.load("A")
         eq_(e.A, "X")
 
     def test_undefined(self):
-        e = env.load("A", "B")
+        e = env.load("B")
         eq_(e.B, None)
+
+    @raises(KeyError)
+    def test_unset(self):
+        e = env.load()
         eq_(e.C, None)
 
     def test_int(self):
