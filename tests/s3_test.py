@@ -16,9 +16,9 @@ class S3TestCase(TestCase):
     TEST_MULTILINE_CONTENT = "ABC\nEFG"
 
     def setUp(self):
-        self.aws_access_key_id     = os.environ["AWS_ACCESS_KEY_ID"]
-        self.aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
-        self.region_name           = os.environ["REGION_NAME"]
+        self.aws_access_key_id     = os.environ["S3_AWS_ACCESS_KEY_ID"]
+        self.aws_secret_access_key = os.environ["S3_AWS_SECRET_ACCESS_KEY"]
+        self.region_name           = os.environ["S3_REGION_NAME"]
 
         self.s3 = aws.S3(
                          aws_access_key_id     = self.aws_access_key_id,
