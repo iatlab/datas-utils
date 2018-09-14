@@ -13,7 +13,7 @@ class RDSTestCase(TestCase):
     def test_rds_connection(self):
         rds = aws.RDS(self.HOST, self.PORT,
                       self.USER, self.PASSWORD, self.DATABASE)
-        with rds as cur:
+        with rds as (conn, cur):
             cur.execute("SELECT * FROM sample")
             rows = cur.fetchall()
         eq_(len(rows), 1)
