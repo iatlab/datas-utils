@@ -13,7 +13,7 @@ class RDS(object):
     def __enter__(self):
         self.conn = mysql.connector.connect(**self.settings)
         self.cur = self.conn.cursor()
-        return self.cur
+        return self.conn, self.cur
 
 
     def __exit__(self, exp_type, value, traceback):
