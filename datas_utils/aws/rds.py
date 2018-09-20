@@ -17,5 +17,7 @@ class RDS(object):
 
 
     def __exit__(self, exp_type, value, traceback):
+        if exp_type is not None:
+            self.conn.rollback()
         self.cur.close()
         self.conn.close()
