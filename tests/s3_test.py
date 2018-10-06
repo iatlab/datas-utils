@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from unittest import TestCase
 from nose.tools import eq_, ok_, raises
 from datas_utils import aws
@@ -85,6 +86,25 @@ class S3TestCase(TestCase):
                             self.KEY_PREFIX+"1-"+self.TEST_FILE,
                             self.KEY_PREFIX+"2-"+self.TEST_FILE,
         ]))
+
+    def test_s3_exists(self):
+        keyname = self.KEY_PREFIX+"1-"+self.TEST_FILE
+        does_exist = self.s3.exists(self.BUCKETNAME, keyname)
+        ok_(not does_exist)
+        self.s3.put(self.BUCKETNAME, 
+                    keyname,
+                    json.dumps(self.TEST_CONTENT).encode(),
+                    "text/json")
+        does_exist = self.s3.exists(self.BUCKETNAME, keyname)
+        ok_(does_exist)
+
+        # time
+        start_time = time.time()
+        for _ in range(5):
+            self.s3.exists(self.BUCKETNAME, keyname)
+            self.s3.exists(self.BUCKETNAME, keyname+".txt")
+        end_time = time.time()
+        print("{:.4f} sec for 10 S3.exists calls".format(end_time - start_time))
 
     def _delete_objects(self):
         session = Session(

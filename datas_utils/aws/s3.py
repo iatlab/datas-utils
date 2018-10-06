@@ -1,5 +1,6 @@
 import json
 from boto3.session import Session
+from botocore.errorfactory import ClientError
 
 class S3(object):
 
@@ -36,6 +37,15 @@ class S3(object):
             ContentType=content_type,
         )
         return response
+
+    def exists(self, bucketname, keyname):
+        try:
+            s3 = self.session.client('s3')
+            s3.head_object(Bucket=bucketname, Key=keyname)
+        except ClientError:
+            return False
+        else:
+            return True
 
     def _get_bucket_object(self, bucketname, keyname):
         s3 = self.session.resource('s3')
