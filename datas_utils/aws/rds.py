@@ -8,6 +8,7 @@ class RDS(object):
             "user": user,
             "password": password,
             "database": database,
+            "allow_local_infile": True
         }
 
     def __enter__(self):
